@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     header('Location: login.php');
     exit();
 }
@@ -12,8 +12,8 @@ if (!isset($_SESSION['user_id'])) {
 // Due: 11/8/2024
 
 require_once '../database/mysqli_conn.php'; // Database connection
-require_once '../php/productController.php'; // Database controller
-require_once '../php/productCard.php'; // Renders individual product cards
+require_once '../php_functions/productController.php'; // Database controller
+require_once '../php_functions/productCard.php'; // Renders individual product cards
 
 // Initialize ProductController
 $productController = new ProductController($db_conn);

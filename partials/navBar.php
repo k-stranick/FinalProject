@@ -1,6 +1,6 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="landing.php">Second Hand Herold</a>
+    <a class="navbar-brand" href="index.php">Second Hand Herold</a>
 
     <!-- Hamburger button for smaller screens -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -12,7 +12,7 @@
         <ul class="navbar-nav ms-auto">
             <!-- Home Link -->
             <li class="nav-item">
-                <a class="nav-link" href="landing.php">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
             </li>
 
             <!-- Listings Dropdown Menu -->
@@ -41,7 +41,7 @@
                     <li><a class="dropdown-item" href="login.php">Login</a></li>
                     <li><a class="dropdown-item" href="account_settings.php">Account Settings</a></li>
                     <li><a class="dropdown-item" href="item_table.php">Edit Listings</a></li>
-                    <li><a class="dropdown-item" href="../php/logout.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="../php_functions/logout.php">Logout</a></li>
                 </ul>
             </li>
         </ul>

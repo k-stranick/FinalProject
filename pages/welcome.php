@@ -3,7 +3,7 @@ session_start();
 // Include the database connection
 require_once '../database/mysqli_conn.php';
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     header('Location: login.php');
     exit();
 }      

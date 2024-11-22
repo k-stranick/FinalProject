@@ -2,8 +2,8 @@
 session_start();
 require_once '../database/mysqli_conn.php'; // test do i need this? 
 
-if (isset($_SESSION['user_id'])) {
-    header('Location: landing.php');
+if (isset($_SESSION['id'])) {
+    header('Location: index.php');
     exit();
 }
 

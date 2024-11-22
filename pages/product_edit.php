@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     header('Location: login.php');
     exit();
 }
@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 // Due: 11/8/2024
 
 require_once '../database/mysqli_conn.php';
-require_once '../php/productController.php';
+require_once '../php_functions/productController.php';
 
 $productController = new ProductController($db_conn);
 $title = 'Edit Listings';

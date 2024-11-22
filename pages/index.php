@@ -13,7 +13,7 @@ if (!isset($_SESSION['id'])) { //TODO: change to user_id for all
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
 
-$title = 'Home Page';
+$title = 'Second Hand Herold';
 $stylesheets = ['../css/landingpage.css'];
 include '../partials/header.php';
 include '../partials/navBar.php';

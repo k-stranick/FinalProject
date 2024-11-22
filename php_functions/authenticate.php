@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Successful login: reset failed attempts and start a session
             resetFailedAttempts($db_conn, $userId);
             $_SESSION['id'] = $userId;
-            header("Location: ../pages/landing.php");
+            header("Location: ../pages/index.php");
             exit();
         } else {
             // Failed login: increment failed attempts
