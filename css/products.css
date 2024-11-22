@@ -1,0 +1,65 @@
+/*
+Name: Kyle Stranick
+Course: ITN 264
+Section: 201
+Title: Assignment 10: Display Database Data
+Due: 11/8/2024
+*/
+
+/* Products */
+/* Additional CSS for spacing and improving layout */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevents content overflow */
+
+}
+
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-body {
+    flex-grow: 1;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.form-section {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #5DADE2;
+    border-color: #5DADE2;
+}
+
+.btn-primary:hover {
+    background-color: #3582b6;
+}
+
+.text-center .btn {
+    display: inline-block;
+    width: auto;
+}
+
+.container h1,
+h2 {
+    background-color: #3582b6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+}

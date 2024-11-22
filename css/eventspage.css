@@ -1,0 +1,38 @@
+/*
+Name: Kyle Stranick
+Course: ITN 264
+Section: 201
+Title: Assignment 10: Display Database Data
+Due: 11/8/2024
+*/
+
+/* Additional CSS for the event section */
+.event-section {
+   margin-top: 50px;
+   padding: 40px;
+   background-color: #f9f9f9;
+   /* Light gray */
+   border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-image {
+   max-height: 400px;
+   object-fit: cover;
+}
+
+.jumbotron {
+   background-color: #3582b6;
+   color: white;
+   margin: 10px;
+
+}
+
+.btn-primary {
+   background-color: #5DADE2;
+   border-color: #5DADE2;
+}
+
+.btn-primary:hover {
+   background-color: #3582b6;
+}

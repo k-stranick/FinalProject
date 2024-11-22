@@ -1,0 +1,61 @@
+
+/* Error message styling */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Form styling */
+.form-section {
+    background-color: #f9f9f9; /* Light gray */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+/* Input field styling */
+.form-control {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #5DADE2;
+    border-color: #5DADE2;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3582b6;
+    transform: scale(1.03);
+}
+
+/* Link styling */
+a {
+    color: #5DADE2;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #3582b6;
+    text-decoration: underline;
+}

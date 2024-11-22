@@ -1,0 +1,118 @@
+Project Overview:
+This project provides a PHP script (database_creation.php) to automate the setup of a MySQL database. It reads configuration details from database_config.php, 
+creates the database if it doesn't already exist, and executes a SQL script (users.sql) to set up tables and seed data.
+The script is designed for flexibility, allowing changes to database credentials and structure without modifying the main script.
+
+File Descriptions:
+
+database_config.php:
+Stores MySQL server connection details:
+Hostname (DB_HOST)
+Port (DB_PORT)
+Username (DB_USER)
+Password (DB_PASSWORD)
+Database name (DB_NAME)
+Centralized configuration simplifies updates for different environments.
+
+database_creation.php:
+Dynamically reads configuration details from database_config.php.
+Connects to the MySQL server.
+Creates the database if it doesn't exist.
+Reads and executes SQL commands from users.sql to set up the database schema and insert initial data.
+
+users.sql:
+Contains SQL commands to:
+Create tables.
+Define primary keys and constraints.
+Insert initial data.
+Prerequisites
+
+Software Requirements:
+PHP 7.4 or later with mysqli extension enabled.
+MySQL 5.7 or later / MariaDB.
+A web server (e.g., XAMPP, WAMP, LAMP) or PHP CLI for execution.
+
+Database User Privileges:
+The MySQL user defined in database_config.php requires the following privileges:
+CREATE (to create the database and tables).
+INSERT (to insert initial data).
+ALTER (to define primary keys and unique constraints).
+Optional for development:
+
+Use ALL PRIVILEGES for simplicity:
+GRANT ALL PRIVILEGES ON *.* TO 'database_connection_user'@'localhost';
+FLUSH PRIVILEGES;
+
+Directory Structure
+Ensure the following file structure: 
+If Sent in a ZIP file, structure should be maintained.
+
+/project_root
+    /database_build_script
+        database_config.php
+        database_creation.php
+        users.sql
+
+How to Use
+Step 1: Configure Database Settings
+Edit database_config.php to match your MySQL server details:
+
+define('DB_HOST', 'localhost');    // MySQL server hostname
+define('DB_PORT', '3306');         // MySQL server port (default is 3306)
+define('DB_USER', 'root');         // MySQL username
+define('DB_PASSWORD', '');         // MySQL password (leave blank if none)
+define('DB_NAME', 'session_assignment'); // Name of the database to create/use
+
+Step 2: Place SQL Script
+Ensure users.sql is in the same directory as database_creation.php. This file should include SQL commands for creating tables and inserting data.
+
+Step 3: Run database_creation.php
+Via Browser: (replace root_directory with the actual root directory)
+Navigate to http://localhost/root_directory/database/database_build_script/database_creation.php
+
+Via Command Line:
+Run the script using PHP CLI:
+php database_creation.php
+
+Step 4: Verify Output
+The script will output the results of each executed SQL command.
+Example output:
+
+#Database created or already exists.
+#Query executed successfully: CREATE TABLE `users` ( ... );
+#Query executed successfully: INSERT INTO `users` ( ... );
+#Database setup complete.
+
+Step 5: Verify Database
+Use a MySQL client (phpMyAdmin, MySQL Workbench, or CLI) to inspect the database:
+
+USE session_assignment;
+SHOW TABLES;
+SELECT * FROM users;
+
+Troubleshooting:
+"Access Denied" Error:
+Ensure the credentials in database_config.php are correct.
+Confirm the user has sufficient privileges.
+
+"Unknown Database" Error:
+Check if the database creation query is running successfully.
+
+SQL File Not Found:
+Verify the users.sql file is in the correct directory.
+Update the path in database_creation.php:
+$sql_file = __DIR__ . '/users.sql';
+
+Query Errors:
+Errors will be displayed in the script output for debugging.
+
+Required Privileges:
+To run the script, the MySQL user must have the following:
+
+Global Privileges:
+CREATE: To create the database.
+
+Database-Specific Privileges:
+CREATE: To create tables.
+INSERT: To insert data.
+ALTER: To define constraints.

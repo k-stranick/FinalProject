@@ -1,0 +1,98 @@
+/*
+Name: Kyle Stranick
+Course: ITN 264
+Section: 201
+Title: Assignment 10: Display Database Data
+Due: 11/8/2024
+*/
+
+/* Entry section styling */
+.entry-section {
+    position: relative; /* Required for positioning the pseudo-element */
+    background-image: url('../media/fleamarket.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 6px #000000;
+    overflow: hidden; /* Ensure the pseudo-element stays within bounds */
+}
+
+.entry-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Black overlay with 50% opacity */
+    z-index: 1; /* Ensure it sits below the text */
+}
+
+.entry-section * {
+    position: relative; /* Bring content above the overlay */
+    z-index: 2;
+}
+
+.entry-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.entry-section p {
+    font-size: 1.25rem;
+    text-shadow: 2px 2px 6px #000000;
+}
+
+/* CTA Buttons */
+.entry-section .btn {
+    margin-right: 10px;
+    padding: 10px 20px;
+}
+
+.entry-section .btn-primary {
+    background-color: #5DADE2;
+    border-color: #5DADE2;
+}
+
+.entry-section .btn-primary:hover {
+    background-color: #3582b6;
+
+}
+
+/* Feature icons */
+.features {
+    margin-top: 50px;
+    color: white;
+    text-shadow: 2px 2px 6px #000000;
+}
+
+.features .icon {
+    font-size: 3rem;
+    color: #5DADE2;
+}
+
+/* Category Cards */
+.categories {
+    margin-top: 50px;
+    color: white;
+}
+
+.categories-heading {
+    text-shadow: 2px 2px 6px #000000;
+}
+
+.category-card {
+    background-color: #f8f9fa;
+    border: none;
+    transition: transform 0.2s;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.category-card:hover {
+    transform: scale(1.03);
+}

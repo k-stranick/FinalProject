@@ -1,0 +1,87 @@
+/*
+Name: Kyle Stranick
+Course: ITN 264
+Section: 201
+Title: Assignment 10: Display Database Data
+Due: 11/8/2024
+*/
+
+/* Hero Section */
+.hero-section {
+    background-color: #5DADE2;
+    color: white;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.hero-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.hero-section p {
+    font-size: 1.2rem;
+    color: #f1f1f1;
+}
+
+/* Table Styling */
+.table-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+.table thead th {
+    background-color: #34495e;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+.table tbody td {
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Button Style */
+.btn-warning {
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+    color: white;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-warning:hover {
+    background-color: #ec971f;
+    border-color: #d58512;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Styling */
+.btn-warning i {
+    margin-right: 5px; /* Adds space between icon and text */
+}
+
+/* Style for table headers with clickable sorting */
+.sortable-header a {
+    color: #f9f9f9; /* Light color for text */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sortable-header a:hover {
+    color: #2ecc71; /* Green on hover */
+}
+
+/* Style for the sort icon */
+.sort-icon {
+    margin-left: 5px;
+    font-size: 0.8em; /* Slightly smaller icon */
+    color: #f9f9f9; /* Match text color */
+}
