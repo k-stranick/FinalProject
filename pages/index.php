@@ -1,11 +1,4 @@
 <?php
-session_start();
-//require_once '../database/mysqli_conn.php';
-
-if (!isset($_SESSION['id'])) { //TODO: change to user_id for all
-    header('Location: login.php');
-    exit();
-}
 
 // Name: Kyle Stranick 
 // Course: ITN 264
@@ -13,6 +6,7 @@ if (!isset($_SESSION['id'])) { //TODO: change to user_id for all
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
 
+require_once '../php_functions/checkAuth.php';
 $title = 'Second Hand Herold';
 $stylesheets = ['../css/landingpage.css'];
 include '../partials/header.php';
@@ -60,7 +54,7 @@ include '../partials/navBar.php';
         </div>
 
         <!-- Popular Categories Section -->
-        <div class="container categories text-center">
+        <div class="container categories text-center mb-5">
             <div class="categories-heading">
                 <h2>Explore Popular Categories</h2>
             </div>
@@ -95,10 +89,9 @@ include '../partials/navBar.php';
             </div>
         </div>
     </main>
-    <!-- Footer Section -->
-    <div>
-        <?php include '../partials/footer.php' ?>
-    </div>
+
+    <?php include '../partials/footer.php' ?>
+
 </body>
 
 </html>

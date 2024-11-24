@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}
 
 // Name: Kyle Stranick
 // Course: ITN 264
@@ -11,6 +6,7 @@ if (!isset($_SESSION['id'])) {
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
 
+require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php'; // Database connection
 require_once '../php_functions/productController.php'; // Database controller
 require_once '../php_functions/productCard.php'; // Renders individual product cards
@@ -19,7 +15,8 @@ require_once '../php_functions/productCard.php'; // Renders individual product c
 $productController = new ProductController($db_conn);
 
 // Query to fetch products from the database
-$products = $productController->fetchProducts();
+//$products = $productController->fetchProducts();
+$products = $productController->fetchAllProducts();
 
 // Page settings
 $title = "Products";
@@ -49,7 +46,6 @@ include '../partials/navbar.php';
         <?php include '../partials/sellForm.php'; ?>
     </main>
 
-    <!-- Footer Section -->
     <?php include '../partials/footer.php' ?>
 </body>
 

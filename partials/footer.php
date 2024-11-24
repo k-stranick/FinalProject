@@ -1,5 +1,5 @@
         <!-- Footer -->
-        <footer class="text-center mt-5 bg-dark text-white py-3">
+        <footer class="text-center bg-dark text-white py-3">
             <p>&copy; <?= date("Y") ?> Second Hand Herald. All rights reserved.</p>
         </footer>
 

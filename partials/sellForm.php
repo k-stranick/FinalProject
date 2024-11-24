@@ -1,5 +1,15 @@
-<!-- Item Submission Form -->
-<div class="container mt-5">
+
+<?php
+$message = $_SESSION['message'] ?? '';
+$error = $_SESSION['error'] ?? false;
+unset($_SESSION['message'], $_SESSION['error']);
+?>
+<div class="container mt-5  mb-5">
+    <?php if ($message): ?>
+        <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
+            <?php echo $message; ?>
+        </div>
+    <?php endif; ?>
     <h2 class="text-center">Want to Sell An Item? Add It Here!</h2>
     <div class="row justify-content-center">
         <div class="col-md-6"> <!-- Form is now limited to 6 out of 12 columns on medium or larger screens -->
@@ -11,7 +21,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="description">Item Description</label>
-                        <textarea class="form-control" id="itemDescription" name="itemDescription" rows="3" placeholder="Enter item description" required></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter item description" required></textarea>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">

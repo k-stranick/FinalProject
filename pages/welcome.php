@@ -1,13 +1,5 @@
 <?php
 session_start();
-// Include the database connection
-require_once '../database/mysqli_conn.php';
-
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}      
-
 /**
  * Name: Kyle Stranick
  * Course: ITN 264
@@ -39,19 +31,13 @@ if (!isset($_SESSION['id'])) {
  * Title: Assignment 11: Sessions
  * Due: 11/22/2024
  */
+//require_once '../php_functions/checkAuth.php';
+require_once '../database/mysqli_conn.php'; // Include the database connection
 
 $title = 'Welcome';
 $stylesheets = ['../css/welcome.css'];
 include '../partials/header.php';
 include '../partials/navBar.php';
-
-// Handle logout
-if (isset($_POST['logout'])) {
-    session_unset(); // Unset all session variables
-    session_destroy(); // Destroy the session
-    header("Location: register.php"); // Redirect to registration page or login page
-    exit();
-}
 
 // Check if session data exists
 if (isset($_SESSION['user_first_name'])):
@@ -86,7 +72,7 @@ if (isset($_SESSION['user_first_name'])):
 
                         <!-- Login Button-->
                         <form method="POST" action="login.php" class="mt-4">
-                            <button type="submit" name="logout" class="btn btn-danger w-50">Return to Login</button>
+                            <button type="submit" name="login" class="btn btn-danger w-50">Return to Login</button>
                         </form>
                     </div>
                 </div>

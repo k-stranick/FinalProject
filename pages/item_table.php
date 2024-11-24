@@ -1,15 +1,14 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}
+require_once '../php_functions/checkAuth.php';
+
+//item_table.php
 
 // Name: Kyle Stranick
 // Course: ITN 264
-// Section: 201
+// Section: 201`
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
+
 require_once '../database/mysqli_conn.php';
 require_once '../php_functions/productController.php';
 
@@ -23,16 +22,16 @@ include '../partials/navBar.php';
 
 
 // Sorting logic
-$column = $_GET['column'] ?? 'id';
+$column = $_GET['column'] ?? 'product_id';
 $order = $_GET['order'] ?? 'ASC';
-$allowedColumns = ['id', 'item_name', 'price', 'city', 'state', 'condition'];
+$allowedColumns = ['product_id', 'item_name', 'price', 'city', 'state', 'condition'];
 
 // Sanitize and validate sorting parameters
-$column = in_array($column, $allowedColumns) ? $column : 'id';
+$column = in_array($column, $allowedColumns) ? $column : 'product_id';
 $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
-
+$user_id = $_SESSION['user_id'];
 // Fetch sorted products
-$products = $productController->fetchProducts($column, $order);
+$products = $productController->fetchProductsByUserId($user_id, $column, $order);
 
 // Helper functions for sorting icons and order toggling
 function getSortOrder($currentColumn, $column, $currentOrder)
@@ -66,7 +65,7 @@ function getSortIcon($currentColumn, $column, $currentOrder)
                 <th class="text-center">Edit</th>
                 <th class="text-center">Delete</th>
                 <th class="text-center sortable-header">
-                  <a href="?column=id&order=<?php echo getSortOrder($column, 'id', $order); ?>">Product ID <span class="sort-icon"><?php echo getSortIcon($column, 'id', $order); ?></span></a>
+                  <a href="?column=product_id&order=<?php echo getSortOrder($column, 'product_id', $order); ?>">Product ID <span class="sort-icon"><?php echo getSortIcon($column, 'product_id', $order); ?></span></a>
                 </th>
                 <th class="text-center sortable-header">
                   <a href="?column=item_name&order=<?php echo getSortOrder($column, 'item_name', $order); ?>">Item Name <span class="sort-icon"><?php echo getSortIcon($column, 'item_name', $order); ?></span></a>
@@ -91,16 +90,19 @@ function getSortIcon($currentColumn, $column, $currentOrder)
                 <?php foreach ($products as $product): ?>
                   <tr>
                     <td class="text-center">
-                      <a href="product_edit.php?id=<?php echo $product['id']; ?>" class="btn btn-warning btn-sm">
+                      <a href="product_edit.php?product_id=<?php echo $product['product_id']; ?>" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit"></i> Edit
                       </a>
                     </td>
                     <td class="text-center">
-                      <a href="product_delete.php?id=<?php echo $product['id']; ?>" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash-alt"></i> Delete
-                      </a>
+                      <form method="post" action="../php_functions/productDelete.php" style="display:inline;">
+                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                      </form>
                     </td>
-                    <td class="text-center"><?php echo htmlspecialchars($product['id']); ?></td>
+                    <td class="text-center"><?php echo htmlspecialchars($product['product_id']); ?></td>
                     <td class="text-center"><?php echo htmlspecialchars($product['item_name']); ?></td>
                     <td class="text-center">$<?php echo htmlspecialchars($product['price']); ?></td>
                     <td class="text-center"><?php echo htmlspecialchars($product['city']); ?></td>
@@ -115,6 +117,12 @@ function getSortIcon($currentColumn, $column, $currentOrder)
                 </tr>
               <?php endif; ?>
             </tbody>
+            <?php if (isset($_SESSION['message'])): ?>
+              <div class="alert alert-<?php echo $_SESSION['message']['type'] === 'success' ? 'success' : 'danger'; ?>">
+                <?php echo $_SESSION['message']['text']; ?>
+              </div>
+              <?php unset($_SESSION['message']); ?>
+            <?php endif; ?>
           </table>
         </div>
       </div>

@@ -4,7 +4,7 @@ function renderProductCard($product) {
     ?>
     <div class="col-md-4">
         <div class="card mb-4">
-            <div id="carousel<?= $product['id'] ?>" class="carousel slide" data-bs-ride="carousel">
+            <div id="carousel<?= $product['product_id'] ?>" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php foreach ($imagePaths as $index => $imagePath): ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
@@ -12,10 +12,10 @@ function renderProductCard($product) {
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?= $product['id'] ?>" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?= $product['product_id'] ?>" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?= $product['id'] ?>" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?= $product['product_id'] ?>" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>

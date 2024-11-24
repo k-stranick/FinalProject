@@ -43,7 +43,7 @@ function passwordsMatch($password, $confirmPassword)
  */
 function userExists($db_conn, $user_name, $email)
 {
-    $stmt = $db_conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $stmt = $db_conn->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $user_name, $email);
     $stmt->execute();
     $stmt->store_result();

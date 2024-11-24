@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}
 
 // Name: Kyle Stranick
 // Course: ITN 264
@@ -11,6 +6,7 @@ if (!isset($_SESSION['id'])) {
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
 
+require_once '../php_functions/checkAuth.php';
 $title = 'Events';
 $stylesheets = ['../css/eventspage.css'];
 include '../partials/header.php';
@@ -31,7 +27,7 @@ include '../partials/navBar.php';
         </div>
 
         <!-- Event Details Section -->
-        <div class="container event-section">
+        <div class="container event-section mb-5">
             <div class="row">
                 <div class="col-md-6">
                     <img src="../media/fleamarket.jpg" class="img-fluid event-image" alt="Community Market Event">
@@ -86,9 +82,7 @@ include '../partials/navBar.php';
     </main>
     
     <!-- Footer Section -->
-    <div>
         <?php include '../partials/footer.php'; ?>
-    </div>
 </body>
 
 </html>

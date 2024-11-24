@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit();
-}
 
 // Name: Kyle Stranick
 // Course: ITN 264
@@ -11,6 +6,7 @@ if (!isset($_SESSION['id'])) {
 // Title: Assignment 10: Display Database Data
 // Due: 11/8/2024
 
+require_once '../php_functions/checkAuth.php';
 $title = 'Sell an Item';
 include '../partials/header.php';
 include '../partials/navBar.php';

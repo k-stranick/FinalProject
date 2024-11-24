@@ -1,5 +1,5 @@
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.php">Second Hand Herold</a>
 
     <!-- Hamburger button for smaller screens -->
@@ -35,13 +35,17 @@
             <!-- Account Link -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Account
+                    <?php echo isset($_SESSION['user_id']) ? htmlspecialchars($_SESSION['username']) : 'Account'; ?>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                    <li><a class="dropdown-item" href="login.php">Login</a></li>
-                    <li><a class="dropdown-item" href="account_settings.php">Account Settings</a></li>
-                    <li><a class="dropdown-item" href="item_table.php">Edit Listings</a></li>
-                    <li><a class="dropdown-item" href="../php_functions/logout.php">Logout</a></li>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <li><a class="dropdown-item" href="account_settings.php">Account Settings</a></li>
+                        <li><a class="dropdown-item" href="item_table.php">Edit Listings</a></li>
+                        <li><a class="dropdown-item" href="../php_functions/logout.php">Logout</a></li>
+                    <?php else: ?>
+                        <li><a class="dropdown-item" href="login.php">Login</a></li>
+                        <li><a class="dropdown-item" href="register.php">Register</a></li>
+                    <?php endif; ?>
                 </ul>
             </li>
         </ul>

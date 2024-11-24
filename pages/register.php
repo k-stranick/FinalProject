@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 /**
  * Name: Kyle Stranick
@@ -21,7 +20,7 @@ include '../partials/navBar.php';
     <main class="content flex-grow-1">
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-4">
                     <?php
                     // Display success or error messages
                     if (isset($_SESSION['success_message'])) {
