@@ -8,18 +8,17 @@
 
 require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php'; // Database connection
-require_once '../php_functions/productController.php'; // Database controller
-require_once '../php_functions/productCard.php'; // Renders individual product cards
+require_once '../products/productController.php'; // Database controller
+require_once '../products/productCard.php'; // Renders individual product cards
 
 // Initialize ProductController
 $productController = new ProductController($db_conn);
 
 // Query to fetch products from the database
-//$products = $productController->fetchProducts();
 $products = $productController->fetchAllProducts();
 
 // Page settings
-$title = "Products";
+$title = "Listings";
 $stylesheets = ['../css/products.css'];
 include '../partials/header.php';
 include '../partials/navbar.php';

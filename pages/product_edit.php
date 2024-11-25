@@ -32,7 +32,7 @@
 require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php';
 require_once '../php_functions/productController.php';
-require_once '../php_functions/FormHandler.php'; // Include FormHandler
+require_once '../formlogic/FormHandler.php'; // Include FormHandler
 
 // Initialize ProductController
 $productController = new ProductController($db_conn);

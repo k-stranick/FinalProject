@@ -7,7 +7,7 @@
 // Due: 11/8/2024
 
 require_once '../php_functions/checkAuth.php';
-$title = 'Sell an Item';
+$title = 'Post a Listing';
 include '../partials/header.php';
 include '../partials/navBar.php';
 ?>

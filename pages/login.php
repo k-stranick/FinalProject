@@ -23,7 +23,7 @@
  */
 
 require_once '../database/mysqli_conn.php';
-$title = 'Login Page';
+$title = 'Login';
 $stylesheets = ['../css/global.css', '../css/login.css']; // Include both global and login-specific styles
 include '../partials/header.php';
 include '../partials/navBar.php';
@@ -43,7 +43,7 @@ include '../partials/navBar.php';
                             Not a member yet? <a href="register.php">Register now</a> and join our community today!
                         </p>
 
-                        <form method="post" action="../php_functions/passwordAuthenticate.php">
+                        <form method="post" action="../database/passwordAuthenticate.php">
                             <?php if (isset($_GET['error'])): ?>  <!-- Check if an error message is set in the URL -->
                                 <div class="error-message">
                                     <?= htmlspecialchars($_GET['error']) ?>  <!-- shorthand syntax for php echo command to Display the error message -->

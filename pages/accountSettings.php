@@ -21,6 +21,7 @@
  * - checkAuth.php: Ensures the user is authenticated.
  * - mysqli_conn.php: Provides the database connection.
  * - UserController.php: Contains methods for fetching and updating user data.
+ * - FormHandler.php: Contains methods for handling form data and file uploads.
  * - header.php: Contains the HTML header and includes necessary CSS and JS files.
  * - navBar.php: Contains the navigation bar.
  * - footer.php: Contains the HTML footer.
@@ -29,7 +30,8 @@
 // Include necessary files and initialize the UserController
 require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php';
-require_once '../php_functions/UserController.php';
+require_once '../users/UserController.php';
+require_once '../formlogic/FormHandler.php';
 
 $title = 'Account Settings';
 include '../partials/header.php';
@@ -42,38 +44,59 @@ $userController = new UserController($db_conn);
 $user_id = $_SESSION['user_id'];
 $user = $userController->fetchUserById($user_id);
 
+// Function to handle form submission
+function handleFormSubmission($userController, $user_id)
+{
+    $accountData = FormHandler::getAccountSettingsData($_POST);
+
+    // Validate account settings data
+    $validationResult = FormHandler::validateUserData($accountData);
+    if (!$validationResult['success']) {
+        $_SESSION['error'] = implode('<br>', $validationResult['errors']);
+        return false;
+    }
+
+    // If password is empty, do not update it
+    $password = !empty($accountData['password']) ? $accountData['password'] : null;
+
+    try {
+        // Update user information
+        $updated = $userController->updateUser(
+            $user_id,
+            $accountData['username'],
+            $accountData['email'],
+            $password,
+            $accountData['first_name'],
+            $accountData['last_name']
+        );
+
+        if ($updated) {
+            // Update the username in the session
+            $_SESSION['username'] = $accountData['username'];
+
+            $_SESSION['message'] = "Account updated successfully.";
+            header('Location: accountSettings.php');
+            exit;
+        } else {
+            $_SESSION['error'] = "Failed to update account. Please try again.";
+        }
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+    }
+
+    return false;
+}
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = trim($_POST['first_name']);
-    $last_name = trim($_POST['last_name']);
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']); // Confirm password field
-
-    // Check if passwords match
-    if ($password !== $confirm_password) {
-        $_SESSION['error'] = "Passwords do not match.";
-    } else {
-        try {
-            // Update user information
-            $updated = $userController->updateUser($user_id, $username, $email, $password, $first_name, $last_name);
-
-            if ($updated) {
-                // Update the username in the session
-                $_SESSION['username'] = $username;
-
-                $_SESSION['message'] = "Account updated successfully.";
-                header('Location: accountSettings.php');
-                exit;
-            } else {
-                $_SESSION['error'] = "Failed to update account. Please try again.";
-            }
-        } catch (Exception $e) {
-            $_SESSION['error'] = $e->getMessage();
-        }
-    }
+    handleFormSubmission($userController, $user_id);
 }
+
+// Set message and error variables from session
+$message = $_SESSION['message'] ?? '';
+$error = $_SESSION['error'] ?? false;
+unset($_SESSION['message'], $_SESSION['error']);
+
 ?>
 
 <body class="global-body">
@@ -83,56 +106,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Account Settings</h1>
 
             <!-- Messages -->
-            <?php if (isset($_SESSION['message'])): ?>
-                <div class="alert alert-success">
-                    <?php echo $_SESSION['message'];
-                    unset($_SESSION['message']); ?>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger">
-                    <?php echo $_SESSION['error'];
-                    unset($_SESSION['error']); ?>
+            <?php if ($message): ?>
+                <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
+                    <?php echo $message; ?>
                 </div>
             <?php endif; ?>
 
             <!-- Account Settings Form -->
-            <form action="accountSettings.php" method="post">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name'] ?? ''); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name'] ?? ''); ?>" required>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep current password">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Re-enter new password">
-                    </div>
-                </div>
-                <!-- Submit Button -->
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-primary">Update Account</button>
-                </div>
-            </form>
+            <?php
+            $action = 'accountSettings.php';
+            $first_name = $user['first_name'] ?? '';
+            $last_name = $user['last_name'] ?? '';
+            $email = $user['email'] ?? '';
+            $username = $user['username'] ?? '';
+            $password_placeholder = 'Leave blank to keep current password';
+            $confirm_password_placeholder = 'Re-enter new password';
+            $button_text = 'Update Account';
+            $require_password = false; // Password fields are optional
+            include '../partials/userForm.php';
+            ?>
         </div>
     </main>
     <?php include '../partials/footer.php'; ?>

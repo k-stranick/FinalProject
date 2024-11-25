@@ -10,11 +10,11 @@ unset($_SESSION['message'], $_SESSION['error']);
             <?php echo $message; ?>
         </div>
     <?php endif; ?>
-    <h2 class="text-center">Want to Sell An Item? Add It Here!</h2>
+    <h2 class="text-center">Want to Sell Something? Post It Here!</h2>
     <div class="row justify-content-center">
         <div class="col-md-6"> <!-- Form is now limited to 6 out of 12 columns on medium or larger screens -->
             <div class="form-section">
-                <form action="../php_functions/submit_item.php" method="post" enctype="multipart/form-data">
+                <form action="../php_functions/SubmitItem.php" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="itemTitle">Item Title</label>
                         <input type="text" class="form-control" id="itemTitle" name="itemTitle" placeholder="Enter item" required>

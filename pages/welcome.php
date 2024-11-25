@@ -1,12 +1,5 @@
 <?php
 session_start();
-/**
- * Name: Kyle Stranick
- * Course: ITN 264
- * Section: 201
- * Title: Project 3
- * Due: 11/22/2024
- */
 
 /**
  * Welcome Page with User Session Management
@@ -31,7 +24,6 @@ session_start();
  * Title: Assignment 11: Sessions
  * Due: 11/22/2024
  */
-//require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php'; // Include the database connection
 
 $title = 'Welcome';
@@ -40,7 +32,7 @@ include '../partials/header.php';
 include '../partials/navBar.php';
 
 // Check if session data exists
-if (isset($_SESSION['user_first_name'])):
+if (isset($_SESSION['first_name'])):
 ?>
 
     <body class="global-body">
@@ -66,8 +58,8 @@ if (isset($_SESSION['user_first_name'])):
                 <!-- User details -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
-                        <h1>Welcome, <?= $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name']; ?>!</h1>
-                        <p><strong>Email:</strong> <?= $_SESSION['user_email']; ?></p>
+                        <h1>Welcome, <?= $_SESSION['first_name'] . ' ' . $_SESSION['last_name']; ?>!</h1>
+                        <p><strong>Email:</strong> <?= $_SESSION['email']; ?></p>
                         <p><strong>Username:</strong> <?= $_SESSION['username']; ?></p>
 
                         <!-- Login Button-->

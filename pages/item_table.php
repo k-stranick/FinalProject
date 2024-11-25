@@ -27,12 +27,12 @@
 
 require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php';
-require_once '../php_functions/productController.php';
+require_once '../products/productController.php';
 
 // Initialize ProductController
 $productController = new ProductController($db_conn);
 
-$title = 'Item Overview';
+$title = 'Your Listings';
 $stylesheets = ['../css/edit-table.css'];
 include '../partials/header.php';
 include '../partials/navBar.php';
@@ -127,7 +127,7 @@ function getSortIcon($currentColumn, $column, $currentOrder)
                       </a>
                     </td>
                     <td class="text-center">
-                      <form method="post" action="../php_functions/productDelete.php" style="display:inline;">
+                      <form method="post" action="../products/productDelete.php" style="display:inline;">
                         <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
                         <button type="submit" class="btn btn-danger btn-sm">
                           <i class="fas fa-trash-alt"></i> Delete

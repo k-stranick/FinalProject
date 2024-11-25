@@ -48,9 +48,22 @@ class UserController
         return $stmt->execute();
     }
 
+    public function registerUser($username, $email, $password, $first_name, $last_name)
+    {
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+        $query = "INSERT INTO users (username, email, password_hash, first_name, last_name) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssss", $username, $email, $password_hash, $first_name, $last_name);
+
+        if (!$stmt) {
+            $this->handleError("Error preparing statement: ");
+        }
+
+        return $stmt->execute();
+    }
+
     private function handleError($message)
     {
         throw new Exception($message . ": " . $this->db->error);
     }
 }
-?>

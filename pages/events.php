@@ -41,7 +41,7 @@ include '../partials/navBar.php';
             <hr class="my-4">
             <p>Find amazing deals on local items, meet other community members, and enjoy a fun-filled day at the market!
             </p>
-            <a class="btn btn-light btn-lg mb-2" href="resources.html" role="button">Learn More</a>
+            <a class="btn btn-light btn-lg mb-2" href="../resources/resources.html" role="button">Learn More</a>
         </div>
 
         <!-- Event Details Section -->
@@ -78,7 +78,7 @@ include '../partials/navBar.php';
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="../php_functions/registerForm.php" method="post">
+                        <form action="../formlogic/registerForm.php" method="post">
                             <div class="form-group">
                                 <label for="fullName">Full Name</label>
                                 <input type="text" class="form-control" id="fullName" name="fullName" required>

@@ -8,12 +8,19 @@
  * Due: 11/22/2024
  */
 
-// Include the database connection
+// Include the necessary files
 require_once '../database/mysqli_conn.php';
+require_once '../formlogic/FormHandler.php';
+require_once '../users/UserController.php';
 
 $title = 'Register New User';
 include '../partials/header.php';
 include '../partials/navBar.php';
+
+// Set message and error variables from session
+$message = $_SESSION['message'] ?? '';
+$error = $_SESSION['error'] ?? false;
+unset($_SESSION['message'], $_SESSION['error']);
 ?>
 
 <body class="global-body">
@@ -21,45 +28,28 @@ include '../partials/navBar.php';
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6 mb-4">
+
+                    <!-- Messages -->
+                    <?php if ($message): ?>
+                        <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
+                            <?php echo $message; ?>
+                        </div>
+                    <?php endif; ?>
+
+
+                    <!-- Registration Form -->
                     <?php
-                    // Display success or error messages
-                    if (isset($_SESSION['success_message'])) {
-                        echo "<div class='alert alert-success text-center'>{$_SESSION['success_message']}</div>";
-                        unset($_SESSION['success_message']);
-                    }
-                    if (isset($_SESSION['error_message'])) {
-                        echo "<div class='alert alert-danger text-center'>{$_SESSION['error_message']}</div>";
-                        unset($_SESSION['error_message']);
-                    }
+                    $action = '../users/processUserRegistration.php';
+                    $first_name = '';
+                    $last_name = '';
+                    $email = '';
+                    $username = '';
+                    $password_placeholder = 'Enter password';
+                    $confirm_password_placeholder = 'Confirm password';
+                    $button_text = 'Register';
+                    $require_password = true; // Password fields are required
+                    include '../partials/userForm.php';
                     ?>
-                    <form method="post" action="../php_functions/process_user_registration.php" class="p-4 border rounded shadow-sm bg-light">
-                        <h2 class="text-center mb-4">Register</h2>
-                        <div class="mb-3">
-                            <label for="first_name" class="form-label">First Name:</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name:</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username:</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password_hash" class="form-label">Password:</label>
-                            <input type="password" class="form-control" id="password_hash" name="password_hash" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirm_password" class="form-label">Confirm Password:</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Register</button>
-                    </form>
                 </div>
             </div>
         </div>

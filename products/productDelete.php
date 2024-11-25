@@ -1,6 +1,5 @@
 <?php
 require_once '../php_functions/checkAuth.php';
-
 require_once '../database/mysqli_conn.php';
 require_once '../php_functions/productController.php';
 
