@@ -1,14 +1,31 @@
 <?php
+
+/**
+ * Name: Kyle Stranick
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ *
+ * This script handles the item overview page where users can manage and edit their product listings.
+ * It includes the following functionalities:
+ * - Displaying a table of products with sorting capabilities.
+ * - Providing buttons to edit or delete each product.
+ * - Displaying success or error messages based on user actions.
+ *
+ * The script ensures that the user is authenticated before accessing the page.
+ * It also includes the header and navigation bar for consistent layout across the site.
+ *
+ * Dependencies:
+ * - checkAuth.php: Ensures the user is authenticated.
+ * - mysqli_conn.php: Provides the database connection.
+ * - productController.php: Contains methods for fetching and managing product data.
+ * - header.php: Contains the HTML header and includes necessary CSS and JS files.
+ * - navBar.php: Contains the navigation bar.
+ * - footer.php: Contains the HTML footer.
+ */
+
 require_once '../php_functions/checkAuth.php';
-
-//item_table.php
-
-// Name: Kyle Stranick
-// Course: ITN 264
-// Section: 201`
-// Title: Assignment 10: Display Database Data
-// Due: 11/8/2024
-
 require_once '../database/mysqli_conn.php';
 require_once '../php_functions/productController.php';
 
@@ -33,12 +50,27 @@ $user_id = $_SESSION['user_id'];
 // Fetch sorted products
 $products = $productController->fetchProductsByUserId($user_id, $column, $order);
 
-// Helper functions for sorting icons and order toggling
-function getSortOrder($currentColumn, $column, $currentOrder)
+
+/**
+ * Get the sort order for a column.
+ *
+ * @param string $currentColumn The current column being sorted.
+ * @param string $column The column to sort.
+ * @param string $currentOrder The current sort order (ASC or DESC).
+ * @return string The new sort order (ASC or DESC).
+ */function getSortOrder($currentColumn, $column, $currentOrder)
 {
   return ($currentColumn === $column && $currentOrder === 'ASC') ? 'DESC' : 'ASC';
 }
 
+/**
+ * Get the sort icon for a column.
+ *
+ * @param string $currentColumn The current column being sorted.
+ * @param string $column The column to sort.
+ * @param string $currentOrder The current sort order (ASC or DESC).
+ * @return string The sort icon (▲ or ▼) or an empty string if not sorted.
+ */
 function getSortIcon($currentColumn, $column, $currentOrder)
 {
   if ($currentColumn === $column) {

@@ -12,9 +12,6 @@ class ProductController
         $this->db = $db;
     }
 
-
-
-
     /************************************************************************
      * Fetch all products with optional sorting
      * @param string $column Column to sort by
@@ -37,9 +34,6 @@ class ProductController
 
         return $stmt->fetch_all(MYSQLI_ASSOC);
     }
-
-
-
 
     /************************************************************************
      * Fetch all products by user ID
@@ -72,9 +66,6 @@ class ProductController
         return $result->fetch_all(MYSQLI_ASSOC);
     } // will this need to retrive images as well?
 
-
-
-
     /************************************************************************
      * Fetch a single product by its ID for editing
      * this will load a single item for editing
@@ -105,9 +96,6 @@ class ProductController
     } // will this need to have images as well? 
       // will this need to have user_id as well?
       // wil this need to have allowedColumns as well?
-
-
-
 
     /************************************************************************
      * Add a new product
@@ -141,9 +129,6 @@ class ProductController
         }
     }
 
-
-
-
     /************************************************************************
      * Delete a product by its ID
      * @param int $id Product ID
@@ -169,8 +154,6 @@ class ProductController
         } // will this need to handle image deletion? 
         // will this need to handle allowedColumns deletion?
     }
-
-
 
     /************************************************************************
      * Update a product
@@ -225,22 +208,22 @@ class ProductController
      * @param array $files Uploaded files
      * @return string Comma-separated image paths
      ************************************************************************/
-    public function uploadImages($files)
-    {
-        $imagePaths = [];
-        $uploadDir = '../media/';
+    // public function uploadImages($files)
+    // {
+    //     $imagePaths = [];
+    //     $uploadDir = '../media/';
 
-        foreach ($files['name'] as $key => $name) {
-            $tmpName = $files['tmp_name'][$key];
-            $filePath = $uploadDir . basename($name);
+    //     foreach ($files['name'] as $key => $name) {
+    //         $tmpName = $files['tmp_name'][$key];
+    //         $filePath = $uploadDir . basename($name);
 
-            if (move_uploaded_file($tmpName, $filePath)) {
-                $imagePaths[] = $filePath;
-            }
-        }
+    //         if (move_uploaded_file($tmpName, $filePath)) {
+    //             $imagePaths[] = $filePath;
+    //         }
+    //     }
 
-        return implode(',', $imagePaths);
-    }
+    //     return implode(',', $imagePaths);
+    // }
 
 
 

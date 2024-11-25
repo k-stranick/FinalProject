@@ -1,9 +1,26 @@
 <?php
-// Name: Kyle Stranick
-// Course: ITN 264
-// Section: 201
-// Title: Project 3
-// Due: 11/22/2024
+
+/**
+ * Name: Kyle Stranick
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ *
+ * This script handles the login page for the Second Hand Herold website.
+ * It includes the following functionalities:
+ * - Displaying a login form for users to enter their credentials.
+ * - Displaying success or error messages based on user actions.
+ * - Providing a link to the registration page for new users.
+ *
+ * The script includes the header and navigation bar for consistent layout across the site.
+ *
+ * Dependencies:
+ * - mysqli_conn.php: Provides the database connection.
+ * - header.php: Contains the HTML header and includes necessary CSS and JS files.
+ * - navBar.php: Contains the navigation bar.
+ * - footer.php: Contains the HTML footer.
+ */
 
 require_once '../database/mysqli_conn.php';
 $title = 'Login Page';
@@ -27,9 +44,9 @@ include '../partials/navBar.php';
                         </p>
 
                         <form method="post" action="../php_functions/passwordAuthenticate.php">
-                            <?php if (isset($_GET['error'])): ?>
+                            <?php if (isset($_GET['error'])): ?>  <!-- Check if an error message is set in the URL -->
                                 <div class="error-message">
-                                    <?= htmlspecialchars($_GET['error']) ?>
+                                    <?= htmlspecialchars($_GET['error']) ?>  <!-- shorthand syntax for php echo command to Display the error message -->
                                 </div>
                             <?php endif; ?>
 

@@ -70,11 +70,3 @@ echo "Database setup complete.\n";
 ?>
 
 
-<!-- resources 
-https://www.php.net/manual/en/ref.mysql.php
-https://www.php.net/manual/en/mysqli.quickstart.connections.php
-https://stackoverflow.com/questions/14037290/what-does-or-mean-in-php
-https://www.w3schools.com/php/func_string_nl2br.asp
-https://www.php.net/manual/en/function.nl2br.php
-https://www.php.net/manual/en/function.ob-start.php
--->

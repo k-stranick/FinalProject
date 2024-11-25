@@ -1,10 +1,28 @@
 <?php
 
-// Name: Kyle Stranick
-// Course: ITN 264
-// Section: 201
-// Title: Assignment 10: Display Database Data
-// Due: 11/8/2024
+/**
+ * Name: Kyle Stranick
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ *
+ * This script handles the events page where users can view upcoming community market events.
+ * It includes the following functionalities:
+ * - Displaying a jumbotron section with a brief introduction to the event.
+ * - Displaying detailed information about the upcoming event.
+ * - Providing a button to learn more about the event.
+ * - Providing a button to reserve a spot at the event.
+ *
+ * The script ensures that the user is authenticated before accessing the page.
+ * It also includes the header and navigation bar for consistent layout across the site.
+ *
+ * Dependencies:
+ * - checkAuth.php: Ensures the user is authenticated.
+ * - header.php: Contains the HTML header and includes necessary CSS and JS files.
+ * - navBar.php: Contains the navigation bar.
+ * - footer.php: Contains the HTML footer.
+ */
 
 require_once '../php_functions/checkAuth.php';
 $title = 'Events';
@@ -80,9 +98,9 @@ include '../partials/navBar.php';
             </div>
         </div>
     </main>
-    
+
     <!-- Footer Section -->
-        <?php include '../partials/footer.php'; ?>
+    <?php include '../partials/footer.php'; ?>
 </body>
 
 </html>

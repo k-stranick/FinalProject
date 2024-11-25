@@ -17,7 +17,7 @@ unset($_SESSION['message'], $_SESSION['error']);
                 <form action="../php_functions/submit_item.php" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="itemTitle">Item Title</label>
-                        <input type="text" class="form-control" id="itemTitle" name="itemTitle" placeholder="Enter item title" required>
+                        <input type="text" class="form-control" id="itemTitle" name="itemTitle" placeholder="Enter item" required>
                     </div>
                     <div class="mb-3">
                         <label for="description">Item Description</label>

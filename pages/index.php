@@ -1,10 +1,26 @@
 <?php
 
-// Name: Kyle Stranick 
-// Course: ITN 264
-// Section: 201
-// Title: Assignment 10: Display Database Data
-// Due: 11/8/2024
+/**
+ * Name: Kyle Stranick 
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ *
+ * This script handles the landing page for the Second Hand Herold website.
+ * It includes the following functionalities:
+ * - Displaying a main section with a brief introduction and call-to-action buttons.
+ * - Displaying a features section highlighting the benefits of using the platform.
+ *
+ * The script ensures that the user is authenticated before accessing the page.
+ * It also includes the header and navigation bar for consistent layout across the site.
+ *
+ * Dependencies:
+ * - checkAuth.php: Ensures the user is authenticated.
+ * - header.php: Contains the HTML header and includes necessary CSS and JS files.
+ * - navBar.php: Contains the navigation bar.
+ * - footer.php: Contains the HTML footer.
+ */
 
 require_once '../php_functions/checkAuth.php';
 $title = 'Second Hand Herold';

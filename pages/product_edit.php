@@ -1,89 +1,124 @@
 <?php
 
-// Name: Kyle Stranick
-// Course: ITN 264
-// Section: 201
-// Title: Assignment 10: Display Database Data
-// Due: 11/8/2024
+/**
+ * Name: Kyle Stranick
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ *
+ * This script handles the product editing page where users can update their product listings.
+ * It includes the following functionalities:
+ * - Fetching product details from the database.
+ * - Displaying a form pre-filled with the product's current information.
+ * - Handling form submission to update product information.
+ * - Handling image uploads for the product.
+ * - Displaying success or error messages based on the update result.
+ *
+ * The script ensures that the user is authenticated before accessing the page.
+ * It also includes the header and navigation bar for consistent layout across the site.
+ *
+ * Dependencies:
+ * - checkAuth.php: Ensures the user is authenticated.
+ * - mysqli_conn.php: Provides the database connection.
+ * - productController.php: Contains methods for fetching and managing product data.
+ * - FormHandler.php: Contains methods for handling form data and file uploads.
+ * - header.php: Contains the HTML header and includes necessary CSS and JS files.
+ * - navBar.php: Contains the navigation bar.
+ * - footer.php: Contains the HTML footer.
+ */
 
+// Include necessary files and ensure the user is authenticated
 require_once '../php_functions/checkAuth.php';
 require_once '../database/mysqli_conn.php';
 require_once '../php_functions/productController.php';
+require_once '../php_functions/FormHandler.php'; // Include FormHandler
 
+// Initialize ProductController
 $productController = new ProductController($db_conn);
+
+function loadProduct($productController, $product_id)
+{
+    $product = $productController->fetchProductById($product_id);
+    if (!$product) {
+        header("Location: item_table.php?message=Product not found.");
+        exit();
+    }
+    return $product;
+}
+
+// Set title and include header and nav bar
 $title = 'Edit Listings';
 include '../partials/header.php';
 include '../partials/navBar.php';
 
-
 // Fetch product ID from URL
 $product_id = $_GET['product_id'] ?? null;
+
+// Initialize variables
 $error = false;
 $message = "";
 $images = []; // Initialize $images to an empty array
-
+$item_name = '';
+$description = '';
+$price = '';
+$condition = '';
+$city = '';
+$state = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $product_id = htmlspecialchars(trim($_POST['product_id']));
-    $item_name = htmlspecialchars(trim($_POST['itemTitle']));
-    $description = htmlspecialchars(trim($_POST['description']));
-    $price = htmlspecialchars(trim($_POST['price']));
-    $condition = htmlspecialchars(trim($_POST['condition']));
-    $city = htmlspecialchars(trim($_POST['city']));
-    $state = strtoupper(htmlspecialchars(trim($_POST['state'])));
+    $user_id = $_SESSION['user_id']; // Ensure $user_id is defined
+    $productData = FormHandler::getProductData($_POST, $user_id);
 
     // Handle image upload
-    $newImagePaths = null;
-    if (!empty($_FILES['images']['name'][0])) {
-        $newImagePaths = $productController->uploadImages($_FILES['images']);
-    }
+    $newImagePaths = !empty($_FILES['images']['name'][0])
+        ? FormHandler::handleFileUploads($_FILES['images'])
+        : null;
 
     // Validate required fields
-    if (empty($item_name) || empty($description) || empty($price) || empty($condition) || empty($city) || empty($state)) {
-        $error = true;
-        $message = "All fields are required.";
+    $validationResult = FormHandler::validateProductData($productData);
+    if (!$validationResult['success']) {
+        $_SESSION['message'] = implode('<br>', $validationResult['errors']);
+        $_SESSION['error'] = true;
     } else {
         // Update product via ProductController
-        $message = $productController->updateProduct($product_id, $item_name, $description, $price, $condition, $city, $state, $newImagePaths);
+        $message = $productController->updateProduct(
+            $product_id,
+            $productData['item_name'],
+            $productData['description'],
+            $productData['price'],
+            $productData['condition'],
+            $productData['city'],
+            $productData['state'],
+            $newImagePaths
+        );
 
         // Refresh product details after update
-        $product = $productController->fetchProductById($product_id);
-        $item_name = $product['item_name'];
-        $description = $product['description'];
-        $price = $product['price'];
-        $condition = $product['condition'];
-        $city = $product['city'];
-        $state = $product['state'];
-        $images = !empty($product['image_path']) ? explode(',', $product['image_path']) : [];
+        $product = loadProduct($productController, $product_id);
     }
-} else {
+} elseif ($product_id) {
     // Load product details for the given product_id
-    if ($product_id) {
-        $product = $productController->fetchProductById($product_id);
-        if (!$product) {
-            header("Location: item_table.php?message=Product not found.");
-            exit();
-        }
-        $item_name = $product['item_name'];
-        $description = $product['description'];
-        $price = $product['price'];
-        $condition = $product['condition'];
-        $city = $product['city'];
-        $state = $product['state'];
-        $images = !empty($product['image_path']) ? explode(',', $product['image_path']) : [];
-    } else {
-        header("Location: item_table.php?message=Invalid product ID.");
-        exit();
-    }
+    $product = loadProduct($productController, $product_id);
+} else {
+    header("Location: item_table.php?message=Invalid product ID.");
+    exit();
 }
+
+// Assign product details to variables
+$item_name = $product['item_name'];
+$description = $product['description'];
+$price = $product['price'];
+$condition = $product['condition'];
+$city = $product['city'];
+$state = $product['state'];
+$images = !empty($product['image_path']) ? explode(',', $product['image_path']) : [];
+
 ?>
 
 
 <body class="global-body">
     <main class="content flex-grow-1">
-
         <div class="container mt-5 mb-5">
-
             <?php if ($message): ?>
                 <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
                     <?php echo $message; ?>
