@@ -84,7 +84,7 @@ function handleRegistration($userController)
             // Set success message
             $_SESSION['message'] = "Registration successful. Welcome!";
             $_SESSION['error'] = false;
-            header('Location: ../pages/welcome.php');
+            header('Location: ../pages/register.php');
             exit;
         } else {
             // Set error message if registration fails
