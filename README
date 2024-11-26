@@ -68,7 +68,7 @@ Ensure users.sql is in the same directory as database_creation.php. This file sh
 
 Step 3: Run database_creation.php
 Via Browser: (replace root_directory with the actual root directory)
-Navigate to http://localhost/root_directory/database/database_build_script/database_creation.php
+Navigate to http://localhost/FINALPROJECT/database/database_build_script/database_creation.php
 
 Via Command Line:
 Run the script using PHP CLI:

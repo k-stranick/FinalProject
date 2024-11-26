@@ -37,7 +37,7 @@ if ($conn->query($db_check_query) === TRUE) {
 $conn->select_db(DB_NAME);
 
 // Path to your SQL file that contains the database creation script
-$sql_file = __DIR__ . '/users.sql'; // Dynamic path to the SQL file
+$sql_file = __DIR__ . '/second_hand_herold.sql'; // Dynamic path to the SQL file
 
 // Check if the SQL file exists
 if (!file_exists($sql_file)) {

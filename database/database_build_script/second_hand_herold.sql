@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Nov 24, 2024 at 05:17 AM
+-- Generation Time: Nov 26, 2024 at 09:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,16 +29,16 @@ USE `second_hand_herold`;
 -- Table structure for table `products`
 --
 -- Creation: Nov 22, 2024 at 10:29 PM
--- Last update: Nov 24, 2024 at 04:15 AM
+-- Last update: Nov 26, 2024 at 08:29 AM
 --
 
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
-  `item_name` text NOT NULL,
+  `item_name` varchar(25) NOT NULL,
   `price` double NOT NULL,
-  `city` text NOT NULL,
+  `city` varchar(25) NOT NULL,
   `state` char(2) NOT NULL,
-  `condition` text NOT NULL,
+  `condition` varchar(10) NOT NULL,
   `description` text NOT NULL,
   `image_path` text NOT NULL,
   `user_id` int(11) NOT NULL
@@ -57,14 +57,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `item_name`, `price`, `city`, `state`, `condition`, `description`, `image_path`, `user_id`) VALUES
-(1, 'TEST', 1, 'FDSAFDSA', 'DE', 'FEW', 'DSADSA', '../media/20180422_162542.jpg', 1),
-(2, 'TEST', 12, 'ew', 're', 'fdsafds', 'ewq', '../media/keiko-and-I-lake.jpg', 1),
-(3, 'TEST', 12, 'ew', 're', 'fdsafds', 'ewq', '../media/keiko-and-I-lake.jpg', 1),
-(4, 'TEST', 456, 'fghfjqde', 'de', 'gfhjkf', 'fdgk', '../media/keiko-and-i.jpg', 1),
-(5, 'TEST', 123, 'test', 'de', 'new', 'test', '../media/keiko-and-i.jpg', 1),
-(6, 'TEST', 122, 'test', 'te', 'old', 'test', '../media/20180517_141354.jpg', 2),
-(7, 'test', 152, 'fix', 'fe', 'test', 'test', '../media/20180527_191624.jpg', 2),
-(8, 'TEST', 1e16, 'Shadow Moses island', 'AK', 'used', 'for david', '../media/20190119_145154.jpg', 3);
+(1, 'jeep wrangler', 1234, 'Millsboro', 'de', 'new', 'test', '../media/20210813_134934.jpg', 1),
+(2, 'test', 1234, 'test', 'de', 'new', 'test item', '../media/20180422_161522.jpg', 1),
+(3, 'Walking Tank', 11111111, 'shadow moses', 'ak', 'used', 'used to build a new outer heaven', '../media/download.jpeg', 2),
+(4, 'test', 1223344, 'test', 'te', 'test', 'test', '../media/20180423_185550.jpg', 2),
+(5, 'babe with the power', 12345, 'who do', 'ut', 'remind me ', 'power of voodo', '../media/download (1).jpeg', 3);
 
 -- --------------------------------------------------------
 
@@ -72,12 +69,12 @@ INSERT INTO `products` (`product_id`, `item_name`, `price`, `city`, `state`, `co
 -- Table structure for table `users`
 --
 -- Creation: Nov 22, 2024 at 06:14 PM
--- Last update: Nov 24, 2024 at 04:12 AM
+-- Last update: Nov 26, 2024 at 08:18 AM
 --
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `first_name` text NOT NULL,
+  `first_name` varchar(15) NOT NULL,
   `last_name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `username` varchar(25) NOT NULL,
@@ -95,9 +92,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `username`, `password_hash`, `failed_attempts`, `last_failed_attempt`) VALUES
-(1, 'kyle', 'stranick', 'kstranic@dtcc.edu', 'kstranic', '$2y$10$EUw/cbZrhvfSKLCIdQqXgOaYOKvUPP.l11IIYQtp46MT..kqQEuMW', 0, NULL),
-(2, 'bill', 'withers', 'appointedDuty@friends.co', 'UseMe', '$2y$10$j4QaofEkVu.P8YdbXDGns.0H3QUAQrrzVJINfWGijzjX.jNkAntti', 0, NULL),
-(3, 'David', 'Hayter', 'canlovebloomonabattlefield@sha', 'lalelulilo', '$2y$10$Li49F8eArlQsQ/aVAqvZxe82f9sRLwLs7ycE3rs8RLPspD3a2ZgFK', 0, NULL);
+(1, 'Kyle', 'Stranick', 'kstranic@dtcc.edu', 'kstranic', '$2y$10$P4TXMcDveXqNirp.ppgNxeMFNVk/HTL1YHXO/TqsAiNRzKgfI39lK', 0, NULL),
+(2, 'David', 'Hayter', 'justabox@shadow.net', 'LesEnfantsTerribles', '$2y$10$lBEV8WM4122WjLSZp/7y3.dGjru6mvZFy845.MxUYX2jxAvwAjZsS', 0, NULL),
+(3, 'Ziggy', 'Stardust', 'thegoblinking@yahoo.com', 'Bowie', '$2y$10$FALNDYasrhe8pDETarjO7umajaAWSaOck89jndg8FOJZUeuWgnkJW', 0, NULL),
+(4, 'test', 'test', 'test@test.test', 'test', '$2y$10$Al8RuArOQYaCV3m853pSyeh8Z8kqX2uBK46s1t/48xPDz9WL3N1Ja', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -127,13 +125,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
