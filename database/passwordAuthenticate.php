@@ -1,13 +1,43 @@
 <?php
-session_start();
+session_start(); // Start the session
+
 require_once '../database/mysqli_conn.php';
 
 /**
+ * ***************************
  * Name: Kyle Stranick
  * Course: ITN 264
  * Section: 201
  * Title: Project 3
  * Due: 11/22/2024
+ * ***************************
+ * 
+ * User Authentication Script
+ *
+ * This script handles user authentication for the Second Hand Herold website.
+ * It includes the following functionalities:
+ *
+ * 1. **Account Lockout Check**: Checks if the user account is locked due to failed login attempts.
+ * 2. **Failed Attempts Reset**: Resets the failed login attempts and last failed attempt timestamp for a user.
+ * 3. **Failed Attempts Increment**: Increments the failed login attempts for a user and updates the last failed attempt timestamp.
+ * 4. **Redirection with Error**: Redirects the user to the login page with an error message.
+ * 5. **User Authentication**: Authenticates the user by verifying the username and password.
+ *
+ * **Dependencies**:
+ * - `mysqli_conn.php`: Provides a connection to the MySQL database.
+ *
+ * **Process Flow**:
+ * - Starts the session.
+ * - Includes the necessary files and initializes the database connection.
+ * - Defines helper functions for account lockout check, failed attempts reset, failed attempts increment, and redirection with error.
+ * - Handles the login form submission.
+ * - Retrieves and sanitizes user input from the login form.
+ * - Queries the database to retrieve user data.
+ * - Checks if the account is locked.
+ * - Verifies the entered password against the stored hash.
+ * - Resets failed attempts on successful login.
+ * - Increments failed attempts on failed login.
+ * - Redirects the user with appropriate feedback messages.
  */
 
 /**
@@ -108,3 +138,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirectWithError("Invalid username or password.");
     }
 }
+?>

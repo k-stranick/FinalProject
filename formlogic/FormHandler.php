@@ -1,13 +1,40 @@
 <?php
+/**
+ * ***************************
+ * Name: Kyle Stranick
+ * Course: ITN 264
+ * Section: 201
+ * Title: Final Project
+ * Due: 12/3/2024
+ * ***************************
+ * 
+ * This class provides utility methods for handling form data on the Second Hand Herold website. 
+ * The class includes functionalities for sanitizing inputs, extracting and validating form data, 
+ * and handling file uploads.
+ * 
+ * Key Features:
+ * - **Sanitization**: Ensures data integrity by sanitizing user inputs.
+ * - **Data Extraction**: Extracts and prepares product and user data for processing.
+ * - **Validation**: Provides rules to validate data integrity for products and users.
+ * - **File Uploads**: Manages file uploads, ensuring secure handling of image files.
+ * 
+ * **Methods**:
+ * - `sanitizeInput($input)`: Sanitizes a string input to prevent XSS attacks.
+ * - `sanitizePrice($price)`: Validates and sanitizes a price input to ensure it's a valid float.
+ * - `getProductData($post, $user_id)`: Extracts and sanitizes product data from form submissions.
+ * - `getUserData($post)`: Extracts and sanitizes account settings or registration data.
+ * - `validateProductData($data)`: Validates the integrity of product data fields.
+ * - `validateUserData($data, $isRegistration)`: Validates user data, including optional password checks.
+ * - `handleFileUploads($files, $uploadDir)`: Handles the upload of image files and returns file paths.
+ */
 
 class FormHandler
 {
-
     /**
-     * Sanitize a string input.
+     * Sanitizes a string input to prevent malicious code injection.
      *
-     * @param string $input Raw input
-     * @return string Sanitized input
+     * @param string $input The raw input string.
+     * @return string Sanitized string.
      */
     public static function sanitizeInput($input)
     {
@@ -15,10 +42,12 @@ class FormHandler
     }
 
     /**
-     * Validate and sanitize price input.
+     * Validates and sanitizes a price input.
      *
-     * @param mixed $price Raw price input
-     * @return float Sanitized and validated price
+     * Ensures the price is a positive float value. If a negative value is provided, it defaults to 0.
+     *
+     * @param mixed $price The raw price input.
+     * @return float Sanitized price.
      */
     public static function sanitizePrice($price)
     {
@@ -26,13 +55,16 @@ class FormHandler
     }
 
     /**
-     * Extract and sanitize product data from form submission.
+     * Extracts and sanitizes product data from form submissions.
      *
-     * @param array $post $_POST data
-     * @param int|null $user_id Optional user ID (for submissions)
-     * @return array Sanitized product data
+     * This method is designed to process product-related data submitted via forms, ensuring
+     * that all inputs are sanitized and valid before further processing.
+     *
+     * @param array $post The form data from $_POST.
+     * @param int|null $user_id The ID of the user submitting the product (optional).
+     * @return array An associative array containing sanitized product data.
      */
-    public static function getProductData(array $post, $user_id = null)
+    public static function getProductData(array $post, $user_id)
     {
         return [
             'item_name' => self::sanitizeInput($post['itemTitle'] ?? ''),
@@ -41,18 +73,20 @@ class FormHandler
             'state' => self::sanitizeInput($post['state'] ?? ''),
             'condition' => self::sanitizeInput($post['condition'] ?? ''),
             'description' => self::sanitizeInput($post['description'] ?? ''),
-            'product_id' => $post['product_id'] ?? null, // For edit operations
-            'user_id' => $user_id // For submissions with logged-in users
+            'product_id' => $post['product_id'] ?? null, // For edit operations.
+            'user_id' => $user_id // User ID for logged-in users.
         ];
     }
 
     /**
-     * Extract and sanitize account settings data from form submission.
+     * Extracts and sanitizes account settings or registration data.
      *
-     * @param array $post $_POST data
-     * @return array Sanitized account settings data
+     * This method is used to process data related to user account settings or registration.
+     *
+     * @param array $post The form data from $_POST.
+     * @return array An associative array containing sanitized user data.
      */
-    public static function getAccountSettingsData(array $post)
+    public static function getUserData(array $post)
     {
         return [
             'first_name' => self::sanitizeInput($post['first_name'] ?? ''),
@@ -64,11 +98,15 @@ class FormHandler
         ];
     }
 
+
     /**
-     * Validate product data.
+     * Validates product data for completeness and integrity.
      *
-     * @param array $data Product data to validate
-     * @return array Validation result (success and error messages)
+     * This method checks if all required fields for a product submission are filled
+     * and meet the expected criteria.
+     *
+     * @param array $data The product data to validate.
+     * @return array An associative array with `success` (bool) and `errors` (array).
      */
     public static function validateProductData(array $data)
     {
@@ -101,12 +139,15 @@ class FormHandler
         ];
     }
 
- /**
-     * Validate user data for account settings or registration.
+       /**
+     * Validates user data for account settings or registration.
      *
-     * @param array $data User data to validate
-     * @param bool $isRegistration Flag to indicate if it's a registration (password required)
-     * @return array Validation result (success and error messages)
+     * This method checks if all required fields for user data are filled,
+     * validates the email format, and ensures password fields match (if required).
+     *
+     * @param array $data The user data to validate.
+     * @param bool $isRegistration Indicates if the validation is for a registration process.
+     * @return array An associative array with `success` (bool) and `errors` (array).
      */
     public static function validateUserData(array $data, bool $isRegistration = false)
     {
@@ -141,7 +182,7 @@ class FormHandler
             }
         }
 
-        // Additional check for registration: password is required
+        // Additional check for registration: password is required.
         if ($isRegistration && empty($data['password'])) {
             $errors[] = 'Password is required.';
         }
@@ -153,11 +194,14 @@ class FormHandler
     }
 
     /**
-     * Handle file uploads and return comma-separated file paths.
+     * Handles file uploads and returns a comma-separated list of uploaded file paths.
      *
-     * @param array $files $_FILES data
-     * @param string $uploadDir Upload directory
-     * @return string Comma-separated list of uploaded file paths
+     * This method processes the uploaded files, saves them to the specified directory,
+     * and returns their file paths.
+     *
+     * @param array $files The uploaded files from $_FILES.
+     * @param string $uploadDir The directory to upload files to.
+     * @return string Comma-separated list of uploaded file paths.
      */
     public static function handleFileUploads(array $files, $uploadDir = '../media/')
     {
@@ -175,3 +219,5 @@ class FormHandler
         return implode(',', $imagePaths);
     }
 }
+
+?>

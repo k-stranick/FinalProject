@@ -23,7 +23,7 @@
                 <ul class="dropdown-menu" aria-labelledby="listingsDropdown">
                     <li><a class="dropdown-item" href="sell.php">Post a Listing</a></li>
                     <li><a class="dropdown-item" href="products.php">Browse Listings</a></li>
-                    <li><a class="dropdown-item" href="item_table.php">Edit Listings</a></li>
+                    <li><a class="dropdown-item" href="listingtable.php">Edit Listings</a></li>
                 </ul>
             </li>
 
@@ -34,14 +34,19 @@
 
             <!-- Account Link -->
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <?php echo isset($_SESSION['user_id']) ? htmlspecialchars($_SESSION['username']) : 'Account'; ?>
+                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- Profile Icon -->
+                    <div class="profile-icon d-flex justify-content-center align-items-center me-2">
+                        <?php
+                        echo strtoupper(substr($_SESSION['username'] ?? 'A', 0, 1));
+                        ?>
+                    </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li><a class="dropdown-item" href="accountSettings.php">Account Settings</a></li>
-                        <li><a class="dropdown-item" href="item_table.php">Edit Listings</a></li>
-                        <li><a class="dropdown-item" href="../users/logout.php">Logout</a></li>
+                        <li><a class="dropdown-item" href="listingtable.php">Edit Listings</a></li>
+                        <li><a class="dropdown-item" href="../sessionmgmt/logout.php">Logout</a></li>
                     <?php else: ?>
                         <li><a class="dropdown-item" href="login.php">Login</a></li>
                         <li><a class="dropdown-item" href="register.php">Register</a></li>

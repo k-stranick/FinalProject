@@ -93,9 +93,7 @@ class ProductController
         } finally {
             $stmt->close();
         }
-    } // will this need to have images as well? 
-      // will this need to have user_id as well?
-      // wil this need to have allowedColumns as well?
+    } 
 
     /************************************************************************
      * Add a new product
@@ -199,34 +197,6 @@ class ProductController
             $stmt->close();
         }
     }
-
-
-
-
-    /************************************************************************
-     * Upload images
-     * @param array $files Uploaded files
-     * @return string Comma-separated image paths
-     ************************************************************************/
-    // public function uploadImages($files)
-    // {
-    //     $imagePaths = [];
-    //     $uploadDir = '../media/';
-
-    //     foreach ($files['name'] as $key => $name) {
-    //         $tmpName = $files['tmp_name'][$key];
-    //         $filePath = $uploadDir . basename($name);
-
-    //         if (move_uploaded_file($tmpName, $filePath)) {
-    //             $imagePaths[] = $filePath;
-    //         }
-    //     }
-
-    //     return implode(',', $imagePaths);
-    // }
-
-
-
     
     /************************************************************************
      * Handle errors by throwing an exception

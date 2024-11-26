@@ -1,48 +1,92 @@
 /* Global Navbar Styles */
 .navbar {
-    background-color: #34495e; /* Dark blue-gray background */
-    padding: 0 20px; /* Equal left and right padding */
+    background-color: #34495e;
+    /* Dark blue-gray background */
+    padding: 0 20px;
+    /* Equal left and right padding */
 }
 
 .navbar .navbar-brand {
     font-weight: bold;
-    color: #ffffff; /* White text color */
+    color: #ffffff;
+    /* White text color */
     transition: color 0.3s;
 }
 
 .navbar .navbar-brand:hover {
-    color: #2ecc71; /* Green on hover */
+    color: #2ecc71;
+    /* Green on hover */
 }
 
 .navbar .nav-link {
-    color: #f9f9f9; /* Light text */
+    color: #f9f9f9;
+    /* Light text */
     transition: color 0.3s;
 }
 
 .navbar .nav-link:hover {
-    color: #2ecc71; /* Green on hover */
+    color: #2ecc71;
+    /* Green on hover */
 }
 
 /* Dropdown Menu */
 .navbar .dropdown-menu {
-    background-color: #34495e; /* Match navbar background */
-    border: none; /* Remove border */
+    background-color: #34495e;
+    /* Match navbar background */
+    border: none;
+    /* Remove border */
 }
 
 .navbar .dropdown-item {
-    color: #f9f9f9; /* Light text */
+    color: #f9f9f9;
+    /* Light text */
     transition: color 0.3s, background-color 0.3s;
 }
 
 .navbar .dropdown-item:hover {
-    color: #2ecc71; /* Green on hover */
-    background-color: #2c3e50; /* Darker background */
+    color: #2ecc71;
+    /* Green on hover */
+    background-color: #2c3e50;
+    /* Darker background */
 }
+
+/* Profile Icon in Navbar */
+.profile-icon {
+    width: 26px; /* Fixed width */
+    height: 26px; /* Fixed height */
+    border-radius: 50%;
+    background: linear-gradient(135deg, #74ebd5, #2ecc71); /* Gradient background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #34495e; /* Dark blue-gray text color */
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Centering text next to the icon */
+.navbar .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown hover effects */
+.navbar-nav .dropdown-menu {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+
+
+
 
 /* Global Body Styles */
 .global-body {
-    background-color: rgba(16, 40, 65, 0.57); /* Semi-transparent dark background */
-    min-height: 100vh; /* Full viewport height */
+    background-color: rgba(16, 40, 65, 0.57);
+    /* Semi-transparent dark background */
+    min-height: 100vh;
+    /* Full viewport height */
     display: flex;
     flex-direction: column;
 }

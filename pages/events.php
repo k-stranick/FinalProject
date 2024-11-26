@@ -1,30 +1,35 @@
 <?php
 
 /**
+ * ***************************
  * Name: Kyle Stranick
  * Course: ITN 264
  * Section: 201
  * Title: Final Project
  * Due: 12/3/2024
- *
+ * ***************************
+ * 
  * This script handles the events page where users can view upcoming community market events.
  * It includes the following functionalities:
- * - Displaying a jumbotron section with a brief introduction to the event.
- * - Displaying detailed information about the upcoming event.
- * - Providing a button to learn more about the event.
- * - Providing a button to reserve a spot at the event.
  *
- * The script ensures that the user is authenticated before accessing the page.
- * It also includes the header and navigation bar for consistent layout across the site.
+ * 1. **Jumbotron Section**: Displays a brief introduction to the event.
+ * 2. **Event Details Section**: Provides detailed information about the upcoming event.
+ * 3. **Event Registration**: Allows users to reserve a spot at the event via a registration form.
  *
- * Dependencies:
- * - checkAuth.php: Ensures the user is authenticated.
- * - header.php: Contains the HTML header and includes necessary CSS and JS files.
- * - navBar.php: Contains the navigation bar.
- * - footer.php: Contains the HTML footer.
+ * **Dependencies**:
+ * - `checkAuth.php`: Ensures the user is authenticated before accessing the page.
+ * - `header.php`: Contains the HTML header and includes necessary CSS and JS files.
+ * - `navBar.php`: Contains the navigation bar.
+ * - `footer.php`: Contains the HTML footer.
+ *
+ * **Page Structure**:
+ * - **Jumbotron Section**: Introduces the event with a title, description, and a call-to-action button.
+ * - **Event Details Section**: Displays the event's date, time, location, and additional details.
+ * - **Event Registration Modal**: Provides a form for users to register for the event.
+ * - **Styling**: Utilizes Bootstrap for styling and responsiveness.
  */
 
-require_once '../php_functions/checkAuth.php';
+require_once '../sessionmgmt/checkAuth.php';
 $title = 'Events';
 $stylesheets = ['../css/eventspage.css'];
 include '../partials/header.php';
@@ -34,13 +39,12 @@ include '../partials/navBar.php';
 <body class="global-body">
     <main class="content flex-grow-1">
 
-        <!-- Jumbotron Section (this is deprecated in bootstrap 5)-->
+        <!-- Jumbotron Section -->
         <div class="jumbotron text-center">
             <h1 class="display-4">Upcoming Community Market Event</h1>
             <p class="lead">Join us for our biggest local resale event of the year!</p>
             <hr class="my-4">
-            <p>Find amazing deals on local items, meet other community members, and enjoy a fun-filled day at the market!
-            </p>
+            <p>Find amazing deals on local items, meet other community members, and enjoy a fun-filled day at the market!</p>
             <a class="btn btn-light btn-lg mb-2" href="../resources/resources.html" role="button">Learn More</a>
         </div>
 
@@ -86,12 +90,12 @@ include '../partials/navBar.php';
                             <div class="form-group">
                                 <label for="telephone">Telephone Number</label>
                                 <input type="tel" class="form-control" id="telephone" name="telephone" required>
-                                <div class="form-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Register</button>
                             </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
                         </form>
                     </div>
                 </div>

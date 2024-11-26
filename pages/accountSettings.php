@@ -1,34 +1,41 @@
 <?php
 
 /**
+ * ***************************
  * Name: Kyle Stranick
  * Course: ITN 264
  * Section: 201
  * Title: Final Project
  * Due: 12/3/2024
- *
+ * ***************************
+ * 
  * This script handles the account settings page where users can update their account information.
  * It includes the following functionalities:
- * - Fetching current user data from the database.
- * - Displaying a form pre-filled with the user's current information.
- * - Handling form submission to update user information.
- * - Displaying success or error messages based on the update result.
  *
- * The script uses the UserController class to interact with the database.
- * It also includes the header and navigation bar for consistent layout across the site.
+ * 1. **Fetching User Data**: Retrieves the current user's information from the database.
+ * 2. **Form Handling**: Pre-fills an HTML form with the user's current information, allowing 
+ *    users to update fields such as first name, last name, email, username, and password.
+ * 3. **Validation and Updates**: Validates form inputs, processes the update via the 
+ *    `UserController`, and provides feedback to the user through success/error messages.
  *
- * Dependencies:
- * - checkAuth.php: Ensures the user is authenticated.
- * - mysqli_conn.php: Provides the database connection.
- * - UserController.php: Contains methods for fetching and updating user data.
- * - FormHandler.php: Contains methods for handling form data and file uploads.
- * - header.php: Contains the HTML header and includes necessary CSS and JS files.
- * - navBar.php: Contains the navigation bar.
- * - footer.php: Contains the HTML footer.
+ * **Dependencies**:
+ * - `checkAuth.php`: Ensures the user is authenticated before accessing this page.
+ * - `mysqli_conn.php`: Provides a connection to the MySQL database.
+ * - `UserController.php`: Contains methods for handling user-related database operations.
+ * - `FormHandler.php`: Provides helper functions for form data sanitization and validation.
+ * - `header.php`, `navBar.php`, and `footer.php`: Include reusable UI components for consistency across pages.
+ *
+ * **Key Methods**:
+ * - `handleFormSubmission($userController, $user_id)`: Handles the form submission to update user details.
+ *
+ * **Page Structure**:
+ * - **Messages**: Displays alerts to indicate success or error in updating the user information.
+ * - **Account Settings Form**: Allows users to update their first name, last name, email, username, and password.
+ * - **Styling**: Utilizes Bootstrap for styling and responsiveness.
  */
 
 // Include necessary files and initialize the UserController
-require_once '../php_functions/checkAuth.php';
+require_once '../sessionmgmt/checkAuth.php';
 require_once '../database/mysqli_conn.php';
 require_once '../users/UserController.php';
 require_once '../formlogic/FormHandler.php';
@@ -47,12 +54,18 @@ $user = $userController->fetchUserById($user_id);
 // Function to handle form submission
 function handleFormSubmission($userController, $user_id)
 {
-    $accountData = FormHandler::getAccountSettingsData($_POST);
+    $accountData = FormHandler::getUserData($_POST);
 
     // Validate account settings data
     $validationResult = FormHandler::validateUserData($accountData);
     if (!$validationResult['success']) {
         $_SESSION['error'] = implode('<br>', $validationResult['errors']);
+        return false;
+    }
+
+    // Check if passwords match
+    if (!empty($accountData['password']) && $accountData['password'] !== $accountData['confirm_password']) {
+        $_SESSION['error'] = 'Passwords do not match.';
         return false;
     }
 
@@ -73,7 +86,9 @@ function handleFormSubmission($userController, $user_id)
         if ($updated) {
             // Update the username in the session
             $_SESSION['username'] = $accountData['username'];
-
+            $_SESSION['first_name'] = $accountData['first_name'];
+            $_SESSION['last_name'] = $accountData['last_name'];
+            $_SESSION['email'] = $accountData['email'];
             $_SESSION['message'] = "Account updated successfully.";
             header('Location: accountSettings.php');
             exit;
@@ -95,20 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Set message and error variables from session
 $message = $_SESSION['message'] ?? '';
 $error = $_SESSION['error'] ?? false;
-unset($_SESSION['message'], $_SESSION['error']);
-
+unset($_SESSION['message'], $_SESSION['error']); // Unset the session variables after use
 ?>
 
 <body class="global-body">
     <main class="content flex-grow-1">
-
         <div class="container mt-5">
             <h1>Account Settings</h1>
 
             <!-- Messages -->
-            <?php if ($message): ?>
+            <?php if ($message || $error): ?>
                 <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
-                    <?php echo $message; ?>
+                    <?php echo $error ? $error : $message; ?>
                 </div>
             <?php endif; ?>
 

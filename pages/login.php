@@ -1,30 +1,40 @@
 <?php
 
 /**
+ * ***************************
  * Name: Kyle Stranick
  * Course: ITN 264
  * Section: 201
  * Title: Final Project
  * Due: 12/3/2024
+ * ***************************
+ * 
+ * Login Page Script
  *
  * This script handles the login page for the Second Hand Herold website.
  * It includes the following functionalities:
- * - Displaying a login form for users to enter their credentials.
- * - Displaying success or error messages based on user actions.
- * - Providing a link to the registration page for new users.
  *
- * The script includes the header and navigation bar for consistent layout across the site.
+ * 1. **Login Form Display**: Displays a login form for users to enter their credentials.
+ * 2. **Error Message Display**: Displays error messages based on user actions.
+ * 3. **Registration Link**: Provides a link to the registration page for new users.
  *
- * Dependencies:
- * - mysqli_conn.php: Provides the database connection.
- * - header.php: Contains the HTML header and includes necessary CSS and JS files.
- * - navBar.php: Contains the navigation bar.
- * - footer.php: Contains the HTML footer.
+ * **Dependencies**:
+ * - `mysqli_conn.php`: Provides the database connection.
+ * - `header.php`: Contains the HTML header and includes necessary CSS and JS files.
+ * - `navBar.php`: Contains the navigation bar.
+ * - `footer.php`: Contains the HTML footer.
+ *
+ * **Page Structure**:
+ * - **Header and Navigation Bar**: Includes the header and navigation bar for consistent layout across the site.
+ * - **Login Form**: Displays a form for users to enter their username and password.
+ * - **Error Message**: Displays error messages if any are set in the URL.
+ * - **Registration Link**: Provides a link to the registration page for new users.
+ * - **Footer**: Includes the footer for consistent layout across the site.
  */
 
 require_once '../database/mysqli_conn.php';
 $title = 'Login';
-$stylesheets = ['../css/global.css', '../css/login.css']; // Include both global and login-specific styles
+$stylesheets = ['../css/login.css']; // Include login-specific styles
 include '../partials/header.php';
 include '../partials/navBar.php';
 ?>
@@ -44,9 +54,9 @@ include '../partials/navBar.php';
                         </p>
 
                         <form method="post" action="../database/passwordAuthenticate.php">
-                            <?php if (isset($_GET['error'])): ?>  <!-- Check if an error message is set in the URL -->
+                            <?php if (isset($_GET['error'])): ?> <!-- Check if an error message is set in the URL -->
                                 <div class="error-message">
-                                    <?= htmlspecialchars($_GET['error']) ?>  <!-- shorthand syntax for php echo command to Display the error message -->
+                                    <?= htmlspecialchars($_GET['error']) ?> <!-- shorthand syntax for php echo command to Display the error message -->
                                 </div>
                             <?php endif; ?>
 

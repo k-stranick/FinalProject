@@ -1,28 +1,35 @@
 <?php
 
 /**
+ * ***************************
  * Name: Kyle Stranick 
  * Course: ITN 264
  * Section: 201
  * Title: Final Project
  * Due: 12/3/2024
- *
+ * ***************************
+ * 
  * This script handles the landing page for the Second Hand Herold website.
  * It includes the following functionalities:
- * - Displaying a main section with a brief introduction and call-to-action buttons.
- * - Displaying a features section highlighting the benefits of using the platform.
  *
- * The script ensures that the user is authenticated before accessing the page.
- * It also includes the header and navigation bar for consistent layout across the site.
+ * 1. **Main Section**: Displays a brief introduction and call-to-action buttons.
+ * 2. **Features Section**: Highlights the benefits of using the platform.
+ * 3. **Popular Categories Section**: Showcases popular product categories with images and links.
  *
- * Dependencies:
- * - checkAuth.php: Ensures the user is authenticated.
- * - header.php: Contains the HTML header and includes necessary CSS and JS files.
- * - navBar.php: Contains the navigation bar.
- * - footer.php: Contains the HTML footer.
+ * **Dependencies**:
+ * - `checkAuth.php`: Ensures the user is authenticated before accessing the page.
+ * - `header.php`: Contains the HTML header and includes necessary CSS and JS files.
+ * - `navBar.php`: Contains the navigation bar.
+ * - `footer.php`: Contains the HTML footer.
+ *
+ * **Page Structure**:
+ * - **Main Section**: Introduces the platform with a title, description, and call-to-action buttons.
+ * - **Features Section**: Highlights key features of the platform.
+ * - **Popular Categories Section**: Displays popular categories with images and links to browse items.
+ * - **Styling**: Utilizes Bootstrap for styling and responsiveness.
  */
 
-require_once '../php_functions/checkAuth.php';
+require_once '../sessionmgmt/checkAuth.php';
 $title = 'Second Hand Herold';
 $stylesheets = ['../css/landingpage.css'];
 include '../partials/header.php';
@@ -32,7 +39,7 @@ include '../partials/navBar.php';
 <body class="global-body">
     <main class="content flex-grow-1">
 
-        <!-- main Section -->
+        <!-- Main Section -->
         <div class="entry-section text-center">
             <div class="main-content">
                 <h1>Find Great Deals in Your Neighborhood</h1>
