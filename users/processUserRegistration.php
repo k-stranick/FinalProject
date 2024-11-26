@@ -49,12 +49,13 @@ function handleRegistration($userController)
 {
     // Retrieve and sanitize form data
     $registrationData = FormHandler::getUserData($_POST);
-    
+
     // Validate registration data
     $validationResult = FormHandler::validateUserData($registrationData, true);
     if (!$validationResult['success']) {
         // Set error message if validation fails
         $_SESSION['error'] = implode('<br>', $validationResult['errors']);
+        $_SESSION['form_data'] = $registrationData; // Save form data in session
         header('Location: ../pages/register.php');
         exit;
     }
@@ -62,6 +63,7 @@ function handleRegistration($userController)
     // Check if passwords match
     if (!empty($registrationData['password']) && $registrationData['password'] !== $registrationData['confirm_password']) {
         $_SESSION['error'] = 'Passwords do not match.';
+        $_SESSION['form_data'] = $registrationData; // Save form data in session
         header('Location: ../pages/register.php');
         exit;
     }
@@ -84,26 +86,30 @@ function handleRegistration($userController)
             // Set success message
             $_SESSION['message'] = "Registration successful. Welcome!";
             $_SESSION['error'] = false;
+            unset($_SESSION['form_data']); // Clear form data from session
             header('Location: ../pages/register.php');
             exit;
         } else {
             // Set error message if registration fails
             $_SESSION['message'] = "Failed to register. Please try again.";
             $_SESSION['error'] = true;
+            $_SESSION['form_data'] = $registrationData; // Save form data in session
             header('Location: ../pages/register.php');
-             exit;
+            exit;
         }
     } catch (Exception $e) {
-        // Set error message if an exception occurs
-        $_SESSION['message'] = $e->getMessage();
-         $_SESSION['error'] = true;
-         header('Location: ../pages/register.php');
+        if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+            $_SESSION['error'] = 'The email address is already registered.';
+        } else {
+            $_SESSION['error'] = $e->getMessage();
+        }
+        $_SESSION['form_data'] = $registrationData; // Save form data in session
+        header('Location: ../pages/register.php');
         exit;
     }
 }
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-   handleRegistration($userController);
+    handleRegistration($userController);
 }
-?>

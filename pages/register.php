@@ -42,15 +42,11 @@ $title = 'Register New User';
 include '../partials/header.php'; // Include the header
 include '../partials/navBar.php'; // Include the navigation bar
 
-// // Check if the form is submitted
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     handleRegistration($userController);
-// }
-
 // Set message and error variables from session
 $message = $_SESSION['message'] ?? '';
 $error = $_SESSION['error'] ?? false;
-unset($_SESSION['message'], $_SESSION['error']); // Unset the session variables after use
+$form_data = $_SESSION['form_data'] ?? []; // Retrieve form data from session
+unset($_SESSION['message'], $_SESSION['error'], $_SESSION['form_data']); // Unset the session variables after use
 ?>
 
 <body class="global-body">
@@ -69,10 +65,10 @@ unset($_SESSION['message'], $_SESSION['error']); // Unset the session variables 
                     <!-- Registration Form -->
                     <?php
                     $action = '../users/processUserRegistration.php';
-                    $first_name = '';
-                    $last_name = '';
-                    $email = '';
-                    $username = '';
+                    $first_name = $form_data['first_name'] ?? '';
+                    $last_name = $form_data['last_name'] ?? '';
+                    $email = $form_data['email'] ?? '';
+                    $username = $form_data['username'] ?? '';
                     $password_placeholder = 'Enter password';
                     $confirm_password_placeholder = 'Confirm password';
                     $button_text = 'Register';

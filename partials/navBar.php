@@ -38,7 +38,11 @@
                     <!-- Profile Icon -->
                     <div class="profile-icon d-flex justify-content-center align-items-center me-2">
                         <?php
-                        echo strtoupper(substr($_SESSION['username'] ?? 'A', 0, 1));
+                        if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
+                            echo strtoupper(substr($_SESSION['username'], 0, 1)); // Show the first letter of the username
+                        } else {
+                            echo 'A'; // Default icon if not logged in
+                        }
                         ?>
                     </div>
                 </a>

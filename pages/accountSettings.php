@@ -116,28 +116,31 @@ unset($_SESSION['message'], $_SESSION['error']); // Unset the session variables 
 <body class="global-body">
     <main class="content flex-grow-1">
         <div class="container mt-5">
-            <h1>Account Settings</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
 
-            <!-- Messages -->
-            <?php if ($message || $error): ?>
-                <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
-                    <?php echo $error ? $error : $message; ?>
+                    <!-- Messages -->
+                    <?php if ($message || $error): ?>
+                        <div class="alert <?= $error ? 'alert-danger' : 'alert-success'; ?>">
+                            <?php echo $error ? $error : $message; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Account Settings Form -->
+                    <?php
+                    $action = 'accountSettings.php';
+                    $first_name = $user['first_name'] ?? '';
+                    $last_name = $user['last_name'] ?? '';
+                    $email = $user['email'] ?? '';
+                    $username = $user['username'] ?? '';
+                    $password_placeholder = 'Leave blank to keep current password';
+                    $confirm_password_placeholder = 'Re-enter new password';
+                    $button_text = 'Update Account';
+                    $require_password = false; // Password fields are optional
+                    include '../partials/userForm.php';
+                    ?>
                 </div>
-            <?php endif; ?>
-
-            <!-- Account Settings Form -->
-            <?php
-            $action = 'accountSettings.php';
-            $first_name = $user['first_name'] ?? '';
-            $last_name = $user['last_name'] ?? '';
-            $email = $user['email'] ?? '';
-            $username = $user['username'] ?? '';
-            $password_placeholder = 'Leave blank to keep current password';
-            $confirm_password_placeholder = 'Re-enter new password';
-            $button_text = 'Update Account';
-            $require_password = false; // Password fields are optional
-            include '../partials/userForm.php';
-            ?>
+            </div>
         </div>
     </main>
     <?php include '../partials/footer.php'; ?>
