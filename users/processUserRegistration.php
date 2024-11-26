@@ -80,9 +80,9 @@ function handleRegistration($userController)
 
         if ($registered) {
             // Set user data in session
-            foreach ($registrationData as $key => $value) {
-                $_SESSION[$key] = $value;
-            }
+            // foreach ($registrationData as $key => $value) {
+            //     $_SESSION[$key] = $value;
+            // }
             // Set success message
             $_SESSION['message'] = "Registration successful. Welcome!";
             $_SESSION['error'] = false;

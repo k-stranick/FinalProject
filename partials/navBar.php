@@ -40,8 +40,6 @@
                         <?php
                         if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) {
                             echo strtoupper(substr($_SESSION['username'], 0, 1)); // Show the first letter of the username
-                        } else {
-                            echo 'A'; // Default icon if not logged in
                         }
                         ?>
                     </div>
